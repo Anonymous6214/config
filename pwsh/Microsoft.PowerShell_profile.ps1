@@ -1,7 +1,6 @@
 Import-Module posh-git
 Import-Module Terminal-Icons
 Import-Module z
-Import-Module Az.Tools.Predictor
 $env:PNPPOWERSHELL_UPDATECHECK='false'
 $env:PYTHONIOENCODING='utf-8'
 $env:PIPENV_VENV_IN_PROJECT=1
