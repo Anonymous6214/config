@@ -4,6 +4,7 @@ Import-Module z
 $env:PNPPOWERSHELL_UPDATECHECK='false'
 $env:PYTHONIOENCODING='utf-8'
 $env:PIPENV_VENV_IN_PROJECT=1
+$env:POETRY_VIRTUALENVS_IN_PROJECT=1
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
 Set-PSReadLineOption -PredictionViewStyle ListView
 New-Alias -Name v -Value nvim
