@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "windows-cli": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@simonb97/server-win-cli",
+        "--config",
+        "C:\\Users\\Admin\\Desktop\\code\\mcp\\powershellConfig.json"
+      ]
+    },
+    "text-editor": {
+      "command": "uvx",
+      "args": [
+        "-p 3.13",
+        "mcp-text-editor"
+      ]
+    }
+  }
+}

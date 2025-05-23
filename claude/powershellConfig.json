@@ -1,0 +1,63 @@
+{
+  "security": {
+    "maxCommandLength": 10000,
+    "blockedCommands": [
+      "format",
+      "shutdown",
+      "restart",
+      "reg",
+      "regedit",
+      "net",
+      "netsh",
+      "takeown",
+      "icacls"
+    ],
+    "blockedArguments": [
+      "--exec",
+      "-e",
+      "/c",
+      "-enc",
+      "-encodedcommand",
+      "-command",
+      "--interactive",
+      "-i",
+      "--login",
+      "--system"
+    ],
+    "allowedPaths": ["C:\\Users\\Admin\\Desktop\\code"],
+    "restrictWorkingDirectory": true,
+    "logCommands": true,
+    "maxHistorySize": 1000,
+    "commandTimeout": 30,
+    "enableInjectionProtection": false
+  },
+  "shells": {
+    "powershell": {
+      "enabled": true,
+      "command": "powershell.exe",
+      "args": ["-NoProfile", "-NonInteractive", "-Command"],
+      "blockedOperators": []
+    },
+    "cmd": {
+      "enabled": false,
+      "command": "cmd.exe",
+      "args": ["/c"],
+      "blockedOperators": ["&", "|", ";", "`"]
+    },
+    "gitbash": {
+      "enabled": true,
+      "command": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "args": ["-c"],
+      "blockedOperators": []
+    }
+  },
+  "ssh": {
+    "enabled": false,
+    "defaultTimeout": 30,
+    "maxConcurrentSessions": 5,
+    "keepaliveInterval": 10000,
+    "keepaliveCountMax": 3,
+    "readyTimeout": 20000,
+    "connections": {}
+  }
+}
