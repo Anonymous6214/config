@@ -1,0 +1,10 @@
+[Unit]
+Description=Disable CPU Turbo Boost
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'echo 1 > /sys/devices/system/cpu/intel_pstate/no_turbo'
+
+[Install]
+WantedBy=multi-user.target
