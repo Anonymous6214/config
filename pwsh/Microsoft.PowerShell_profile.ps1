@@ -27,7 +27,18 @@ Remove-Variable ompPackages, ompRoot, ompConfig, ompCache, ompScript -ErrorActio
 # zoxide（取代 z 模組）：z <關鍵字> 跳目錄，zi 互動選擇；cd 照常使用也會被記錄
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
-# Terminal-Icons 載入很慢，等提示字元出現、第一次閒置時才在背景載入
+# Terminal-Icons 載入很慢，等提示字元出現、第一次閒置時才在背景載入。
+# 它每次載入都會重寫主題快取（%APPDATA%\powershell\Community\Terminal-Icons\*.xml），
+# 寫到一半被中斷會留下截斷的檔案，之後就載入失敗；失敗時刪掉解析不了的檔案（會自動重建）再試一次。
 $null = Register-EngineEvent -SourceIdentifier PowerShell.OnIdle -MaxTriggerCount 1 -Action {
-    Import-Module Terminal-Icons -Global
+    try {
+        Import-Module Terminal-Icons -Global -ErrorAction Stop
+    } catch {
+        $broken = Get-ChildItem "$env:APPDATA\powershell\Community\Terminal-Icons" -Filter *.xml -ErrorAction Ignore |
+            Where-Object { try { $null = [xml](Get-Content $_.FullName -Raw); $false } catch { $true } }
+        if (-not $broken) { throw }
+        $broken | Remove-Item -Force
+        Write-Host "`nTerminal-Icons：已刪除損壞的快取 $($broken.Name -join ', ')，重新載入" -ForegroundColor Yellow
+        Import-Module Terminal-Icons -Global -Force
+    }
 }
